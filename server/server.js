@@ -60,14 +60,21 @@ app.get("/cartas", (req, res) => {
 });
 
 app.get("/cartas/aleatoria", (req, res) => {
+  res.set("Access-Control-Allow-Origin","http://localhost:5173")
   const card = cards[Math.floor(Math.random() * cards.length)];
-
   res.send(page(
     "Carta à sorte",
     `<h2>${card.name}</h2>
      <p>${card.type} · ataque ${card.attack} · defesa ${card.defense}</p>`
   ));
 });
+
+app.get("/api/cartas/aleatoria", (req, res) => {
+  const card = cards[Math.floor(Math.random() * cards.length)];
+  res.set("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.json(card);
+});
+
 
 app.get("/agora", (req, res) => {
   const now = new Date().toLocaleString("pt-PT", {
